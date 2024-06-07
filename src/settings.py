@@ -35,9 +35,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
+    # 'daphne',
     # external apps
     'rest_framework',
+    'corsheaders',
     'rest_framework.authtoken',
     #  internal apps
     "api",
@@ -47,8 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
-    'chat',
+
+    # 'channels',
+    # 'chat',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
@@ -79,7 +82,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "src.asgi.application"
+# ASGI_APPLICATION = "src.asgi.application"
+WSGI_APPLICATION = "src.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -141,3 +145,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React's default port
+]
