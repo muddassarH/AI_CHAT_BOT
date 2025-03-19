@@ -11,7 +11,23 @@ jobs:
         steps:
         - name: Checkout Code
           uses: actions/checkout@v4
-
+        - name: Build Docker image
+          run: |
+            docker build -t ai_chat_bot:latest
+        - name: Build and tag docker image
+          run: |
+            docker buildx build --platform linux/amd64 \
+            --tag ai_chat_bot:latest \
+            -f Dockerfile.ci \ 
+            --load \
+            .
+        - name: Check if image was built
+          run: | 
+            docker images ai_chat_bot:latest
+            
+        - name: Output Result 
+          run: echo "Image Built"
+        
         - name: Create coverage directory
           run: |
             mkdir -p ./coverage
